@@ -1,0 +1,38 @@
+env:
+  node: true
+  browser: true
+  es2021: true
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+  - plugin:@typescript-eslint/recommended
+  - prettier
+parser: '@typescript-eslint/parser'
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: latest
+  sourceType: module
+plugins:
+  - '@typescript-eslint'
+  - react
+  - react-hooks
+rules:
+  indent: [error, 2, {SwitchCase: 1}]
+  linebreak-style: [error, unix]
+  quotes: [error, single]
+  semi: [error, always]
+  comma-spacing: [error, {before: false, after: true}]
+  eol-last: error
+  keyword-spacing: error
+  no-console: warn
+  no-multi-spaces: error
+  no-new: error
+  no-unused-vars: off
+  no-var: warn
+  no-trailing-spaces: warn
+  space-before-blocks: error
+  space-infix-ops: error
+  '@typescript-eslint/no-unused-vars': [warn]
+  '@typescript-eslint/no-var-requires': off
+  react/react-in-jsx-scope: off
