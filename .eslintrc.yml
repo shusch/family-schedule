@@ -7,6 +7,14 @@ extends:
   - plugin:react/recommended
   - plugin:@typescript-eslint/recommended
   - prettier
+overrides:
+  - files:
+      - '**/__tests__/**/*.[tj]s?(x)'
+      - '**/?(*.)+(spec|test).[tj]s?(x)'
+    extends:
+      - plugin:jest/recommended
+      - plugin:jest-dom/recommended
+      - plugin:testing-library/react
 parser: '@typescript-eslint/parser'
 parserOptions:
   ecmaFeatures:
@@ -17,6 +25,9 @@ plugins:
   - '@typescript-eslint'
   - react
   - react-hooks
+  - jest
+  - jest-dom
+  - testing-library
 rules:
   indent: [error, 2, {SwitchCase: 1}]
   linebreak-style: [error, unix]
