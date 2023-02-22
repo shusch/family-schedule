@@ -1,2 +1,3 @@
-# family-schedule
+# Family Schedule
+
 Family Schedule App
