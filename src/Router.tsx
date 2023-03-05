@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { List } from './pages/List';
+import { Home } from './pages/Home';
 
 export const Router: FC = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<List />} />
+        <Route path='/' element={<Home />} />
       </Routes>
     </BrowserRouter>
   );

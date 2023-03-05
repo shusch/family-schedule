@@ -1,13 +1,27 @@
 import { FC } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Global, css } from '@emotion/react';
 
 import { Router } from './Router';
 
 const App: FC = () => {
   return (
-    <Router />
+    <>
+      <Global styles={style} />
+      <Router />
+    </>
   );
 };
+
+const style = css`
+  html,
+  body {
+    height: 100%;
+  }
+  #app {
+    height: 100%;
+  }
+`;
 
 const container = document.getElementById('app');
 if (!container) throw new Error('Failed to find the root element');
