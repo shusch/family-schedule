@@ -1,6 +1,9 @@
 const path = require('path');
 const environment = process.env.NODE_ENV || 'development';
 
+const webpack = require('webpack');
+const dotenv = require('dotenv').config().parsed;
+
 module.exports = {
   entry: './src/index.tsx',
   output: {
@@ -39,5 +42,14 @@ module.exports = {
       watch: true
     },
     historyApiFallback: true
-  }
+  },
+  plugins: [
+    dotenv !== undefined
+      ? new webpack.DefinePlugin({
+        'process.env': JSON.stringify(dotenv)
+      })
+      : new webpack.DefinePlugin({
+        'process.env': JSON.stringify(process.env)
+      })
+  ]
 };
