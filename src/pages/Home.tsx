@@ -1,9 +1,12 @@
 import { FC } from 'react';
 import { css } from '@emotion/react';
+import { useTranslation } from 'react-i18next';
 
 import { Layout } from '@/components/layout/Layout';
 
 export const Home: FC = () => {
+  const { t } = useTranslation();
+
   const schedules = [
     {
       id: 1,
@@ -20,11 +23,12 @@ export const Home: FC = () => {
       destination: 'Singapore',
     },
   ];
+
   return (
     <Layout>
       <h1 css={headingMain}>Family Schedule</h1>
       <div css={scheduleContainer}>
-        <h2 css={headingSchedule}>Schedules</h2>
+        <h2 css={headingSchedule}>{t('schedules')}</h2>
         <ul>
           {schedules.map(schedule => (
             <li css={scheduleItem} key={schedule.id}>

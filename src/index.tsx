@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import { Global, css } from '@emotion/react';
 
 import { Router } from './Router';
+import './i18n';
 
 const App: FC = () => {
   return (
