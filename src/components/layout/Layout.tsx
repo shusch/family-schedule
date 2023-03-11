@@ -16,7 +16,7 @@ const wrapper = css({
 
 const mainContainer = css({
   margin: '0 auto',
-  paddingTop: '80px',
+  padding: '60px 0',
   width: '80%',
   maxWidth: '960px',
 });

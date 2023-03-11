@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { Layout } from '@/components/layout/Layout';
 
@@ -32,11 +33,13 @@ export const Home: FC = () => {
         <ul>
           {schedules.map(schedule => (
             <li css={scheduleItem} key={schedule.id}>
-              <h3 css={scheduleName}>{schedule.name}</h3>
-              <div css={schedulePeriod}>
-                {schedule.periodFrom} &ndash; {schedule.periodTo}
-              </div>
-              <div>{schedule.destination}</div>
+              <Link to={`schedule/${schedule.id}`}>
+                <h3 css={scheduleName}>{schedule.name}</h3>
+                <div css={schedulePeriod}>
+                  {schedule.periodFrom} &ndash; {schedule.periodTo}
+                </div>
+                <div>{schedule.destination}</div>
+              </Link>
             </li>
           ))}
         </ul>
