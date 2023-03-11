@@ -2,6 +2,8 @@ import { FC } from 'react';
 import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import { Layout } from '@/components/layout/Layout';
 
@@ -36,9 +38,13 @@ export const Home: FC = () => {
               <Link to={`schedule/${schedule.id}`}>
                 <h3 css={scheduleName}>{schedule.name}</h3>
                 <div css={schedulePeriod}>
+                  <CalendarMonthIcon css={iconLeft} />
                   {schedule.periodFrom} &ndash; {schedule.periodTo}
                 </div>
-                <div>{schedule.destination}</div>
+                <div css={scheduleLocation}>
+                  <LocationOnIcon css={iconLeft} />
+                  {schedule.destination}
+                </div>
               </Link>
             </li>
           ))}
@@ -87,5 +93,16 @@ const scheduleName = css({
 });
 
 const schedulePeriod = css({
+  display: 'flex',
+  alignItems: 'center',
   marginBottom: '10px',
+});
+
+const scheduleLocation = css({
+  display: 'flex',
+  alignItems: 'center',
+});
+
+const iconLeft = css({
+  marginRight: '8px',
 });

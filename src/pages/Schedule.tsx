@@ -1,5 +1,7 @@
 import { FC } from 'react';
 import { css } from '@emotion/react';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 import { Layout } from '@/components/layout/Layout';
 
@@ -65,9 +67,13 @@ export const Schedule: FC = () => {
       <h1 css={headingMain}>{scheduleRes.name}</h1>
       <div css={aboutContainer}>
         <div css={aboutItem}>
+          <CalendarMonthIcon css={iconLeft} />
           {scheduleRes.periodFrom} &ndash; {scheduleRes.periodTo}
         </div>
-        <div css={aboutItem}>{scheduleRes.destination}</div>
+        <div css={aboutItem}>
+          <LocationOnIcon css={iconLeft} />
+          {scheduleRes.destination}
+        </div>
       </div>
 
       <ul css={scheduleContainer}>
@@ -96,16 +102,23 @@ export const Schedule: FC = () => {
 const headingMain = css({
   fontSize: '24px',
   fontWeight: 'bold',
-  marginBottom: '24px',
+  marginBottom: '30px',
   textAlign: 'center',
 });
 
 const aboutContainer = css({
   marginBottom: '24px',
-  textAlign: 'center',
 });
 const aboutItem = css({
-  marginBottom: '16px',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  marginBottom: '8px',
+});
+
+const iconLeft = css({
+  height: '.9em',
+  marginRight: '8px',
 });
 
 const scheduleContainer = css({
@@ -132,15 +145,16 @@ const scheduleTimetable = css({
   display: 'flex',
   flexFlow: 'row wrap',
   lineHeight: '1.4',
-  paddingLeft: '2em',
+  paddingLeft: '1em',
 
   '& dt, & dd': {
     marginTop: '8px',
   },
   '& dt': {
-    width: '30%',
+    width: '140px',
   },
   '& dd': {
-    width: '70%',
+    marginLeft: '10px',
+    width: 'calc(100% - 140px - 10px)',
   },
 });
