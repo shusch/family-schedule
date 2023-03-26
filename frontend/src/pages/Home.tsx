@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { css } from '@emotion/react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -26,6 +26,11 @@ export const Home: FC = () => {
       destination: 'Singapore',
     },
   ];
+  useEffect(() => {
+    fetch('http://localhost:3000/api/v1/schedules')
+      .then((res) => res.json())
+      .then(data => console.log(data));
+  }, []);
 
   return (
     <Layout>

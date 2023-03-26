@@ -5,6 +5,11 @@ import { Global, css } from '@emotion/react';
 import { Router } from './Router';
 import './i18n';
 
+if (process.env.NODE_ENV === 'development') {
+  const { worker } = require('./mocks/browser');
+  worker.start();
+}
+
 const App: FC = () => {
   return (
     <>
