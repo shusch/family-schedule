@@ -1,35 +1,28 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 import { Layout } from '@/components/layout/Layout';
+import { api } from '@/utils/api';
+import type { Schedule } from '@/types/schedule';
 
 export const Home: FC = () => {
   const { t } = useTranslation();
 
-  const schedules = [
-    {
-      id: 1,
-      name: 'Schedule A',
-      periodFrom: '2023-01-01',
-      periodTo: '2023-10-30',
-      destination: 'New York',
-    },
-    {
-      id: 2,
-      name: 'Schedule B',
-      periodFrom: '2023-02-10',
-      periodTo: '2023-04-30',
-      destination: 'Singapore',
-    },
-  ];
+  const [schedules, setSchedules] = useState<Schedule[]>([]);
+
   useEffect(() => {
-    fetch('http://localhost:3000/api/v1/schedules')
-      .then((res) => res.json())
-      .then(data => console.log(data));
+    api
+      .get('/api/schedules')
+      .then(data => {
+        setSchedules(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   }, []);
 
   return (
