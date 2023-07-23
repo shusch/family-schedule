@@ -76,33 +76,33 @@ export const handlers = [
             id: 1,
             informationType: 'reference',
             key: 'https://google.com',
-            value: 'Sample text description'
+            value: 'Sample text description',
           },
           {
             id: 2,
             informationType: 'reference',
             key: 'https://www.yahoo.co.jp/',
-            value: 'Sample link 2'
+            value: 'Sample link 2',
           },
           {
             id: 3,
             informationType: 'todo',
             key: 'This is TODO text',
-            value: 0
+            value: 0,
           },
           {
             id: 4,
             informationType: 'todo',
             key: 'Sample TODO text 2',
-            value: 1
+            value: 1,
           },
           {
             id: 5,
             informationType: 'note',
             key: null,
-            value: 'This is dummy text.\\nText text. dummy, dummy, dummy text.'
-          }
-        ]
+            value: 'This is dummy text.\\nText text. dummy, dummy, dummy text.',
+          },
+        ],
       })
     );
   }),
@@ -110,7 +110,7 @@ export const handlers = [
   // edit schedule
   rest.patch('/api/schedules/:scheduleId', async (req, res, ctx) => {
     const { scheduleId } = req.params;
-    const body = await req.json() as any;
+    const body = (await req.json()) as any;
     return res(
       ctx.status(200),
       ctx.json({
@@ -120,8 +120,8 @@ export const handlers = [
           name: body.name,
           periodFrom: body.periodFrom,
           periodTo: body.periodTo,
-          destination: body.destination
-        }
+          destination: body.destination,
+        },
       })
     );
   }),
@@ -175,7 +175,7 @@ export const handlers = [
           title: body.title,
           timeFrom: body.timeFrom,
           timeTo: body.timeTo,
-        }
+        },
       })
     );
   }),
@@ -195,33 +195,33 @@ export const handlers = [
             id: 1,
             informationType: 'reference',
             key: 'https://google.com',
-            value: 'Sample text description'
+            value: 'Sample text description',
           },
           {
             id: 2,
             informationType: 'reference',
             key: 'https://www.yahoo.co.jp/',
-            value: 'Sample link 2'
+            value: 'Sample link 2',
           },
           {
             id: 3,
             informationType: 'todo',
             key: 'This is TODO text',
-            value: 0
+            value: 0,
           },
           {
             id: 4,
             informationType: 'todo',
             key: 'Sample TODO text 2',
-            value: 1
+            value: 1,
           },
           {
             id: 5,
             informationType: 'note',
             key: null,
-            value: 'This is dummy text.\\nText text. dummy, dummy, dummy text.'
-          }
-        ]
+            value: 'This is dummy text.\\nText text. dummy, dummy, dummy text.',
+          },
+        ],
       })
     );
   }),
@@ -239,8 +239,8 @@ export const handlers = [
           title: body.title,
           timeFrom: body.timeFrom,
           timeTo: body.timeTo,
-        }
-      }),
+        },
+      })
     );
   }),
 
@@ -252,5 +252,5 @@ export const handlers = [
         success: true,
       })
     );
-  })
+  }),
 ];
