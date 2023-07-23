@@ -1,100 +1,96 @@
-import { FC } from 'react';
+import { FC, Fragment, useEffect, useState } from 'react';
 import { css } from '@emotion/react';
+import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
+
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Button } from '@mui/material';
 
 import { Layout } from '@/components/layout/Layout';
+import { api } from '@/utils/api';
+import type { Schedule as ScheduleType, ScheduleInformation, Event } from '@/types/schedule';
 
 export const Schedule: FC = () => {
-  const scheduleRes = {
-    id: 1,
-    name: 'New York Travel',
-    periodFrom: '2023-01-01',
-    periodTo: '2023-10-30',
-    destination: 'New York',
-    schedules: [
-      {
-        date: '2023-03-01',
-        timetable: [
-          {
-            id: 1,
-            title: 'title 01',
-            timeFrom: '9:00',
-            timeTo: '9:30',
-          },
-          {
-            id: 2,
-            title: 'title 02',
-            timeFrom: '9:10',
-            timeTo: '9:20',
-          },
-          {
-            id: 3,
-            title: 'title 03',
-            timeFrom: '10:00',
-            timeTo: '12:30',
-          },
-        ],
-      },
-      {
-        date: '2023-03-02',
-        timetable: [
-          {
-            id: 11,
-            title: 'title 11',
-            timeFrom: '14:00',
-            timeTo: '14:30',
-          },
-          {
-            id: 12,
-            title: 'title 12',
-            timeFrom: '15:10',
-            timeTo: '16:20',
-          },
-          {
-            id: 13,
-            title: 'title 13',
-            timeFrom: '18:40',
-            timeTo: '20:30',
-          },
-        ],
-      },
-    ],
+  const { scheduleId } = useParams();
+  const { t } = useTranslation();
+
+  const [schedule, setSchedule] = useState<ScheduleType & ScheduleInformation>();
+  const [events, setEvents] = useState<{
+    [key: string]: Event[];
+  }>({});
+
+  useEffect(() => {
+    api
+      .get(`/api/schedules/${scheduleId}`)
+      .then(data => {
+        setSchedule(data);
+      })
+      .catch(err => {
+        console.warn(err);
+      });
+
+    api
+      .get(`/api/schedules/${scheduleId}/events`)
+      .then(data => {
+        setEvents(data);
+      })
+      .catch(err => {
+        console.warn(err);
+      });
+  }, []);
+
+  const transformTime = (iso8601: string) => {
+    const ts = Date.parse(iso8601);
+    const date = new Date(ts);
+    return `${date.getHours().toString().padStart(2, '0')}:${date
+      .getMinutes()
+      .toString()
+      .padStart(2, '0')}`;
   };
 
   return (
     <Layout>
-      <h1 css={headingMain}>{scheduleRes.name}</h1>
-      <div css={aboutContainer}>
-        <div css={aboutItem}>
-          <CalendarMonthIcon css={iconLeft} />
-          {scheduleRes.periodFrom} &ndash; {scheduleRes.periodTo}
-        </div>
-        <div css={aboutItem}>
-          <LocationOnIcon css={iconLeft} />
-          {scheduleRes.destination}
-        </div>
-      </div>
+      {schedule && (
+        <>
+          <h1 css={headingMain}>{schedule.name}</h1>
+          <div css={aboutContainer}>
+            <div css={aboutItem}>
+              <CalendarMonthIcon css={iconLeft} />
+              {schedule.periodFrom} &ndash; {schedule.periodTo}
+            </div>
+            <div css={aboutItem}>
+              <LocationOnIcon css={iconLeft} />
+              {schedule.destination}
+            </div>
+            <div css={[aboutItem, aboutItemButton]}>
+              <Button variant='contained'>{t('information')}</Button>
+            </div>
+          </div>
 
-      <ul css={scheduleContainer}>
-        {scheduleRes.schedules.map(data => {
-          return (
-            <li key={data.date} css={schedule1Day}>
-              <h3 css={scheduleDate}>{data.date}</h3>
-              <dl css={scheduleTimetable}>
-                {data.timetable.map(item => (
-                  <>
-                    <dt key={item.id}>
-                      {item.timeFrom} &ndash; {item.timeTo}
-                    </dt>
-                    <dd>{item.title}</dd>
-                  </>
-                ))}
-              </dl>
-            </li>
-          );
-        })}
-      </ul>
+          <ul css={scheduleContainer}>
+            {Object.keys(events)
+              .sort()
+              .map(eventDate => {
+                return (
+                  <li key={eventDate} css={schedule1Day}>
+                    <h3 css={scheduleDate}>{eventDate}</h3>
+                    <dl css={scheduleTimetable}>
+                      {events[eventDate].map(item => (
+                        <Fragment key={item.id}>
+                          <dt>
+                            {transformTime(item.timeFrom)} &ndash; {transformTime(item.timeTo)}
+                          </dt>
+                          <dd>{item.title}</dd>
+                        </Fragment>
+                      ))}
+                    </dl>
+                  </li>
+                );
+              })}
+          </ul>
+        </>
+      )}
     </Layout>
   );
 };
@@ -113,7 +109,10 @@ const aboutItem = css({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  marginBottom: '8px',
+  marginBottom: '12px',
+});
+const aboutItemButton = css({
+  marginTop: '20px',
 });
 
 const iconLeft = css({
@@ -125,7 +124,7 @@ const scheduleContainer = css({
   backgroundColor: '#fff',
   border: '1px solid #ddd',
   borderRadius: '10px',
-  padding: '30px',
+  padding: '30px 20px',
 });
 
 const schedule1Day = css({
