@@ -140,26 +140,36 @@ export const handlers = [
   rest.get('/api/schedules/:scheduleId/events', (_req, res, ctx) => {
     return res(
       ctx.status(200),
-      ctx.json([
-        {
-          id: 1,
-          title: 'Event 1',
-          timeFrom: '2023-07-12T11:00:00.000+09:00',
-          timeTo: '2023-07-12T12:15:10.000+09:00',
-        },
-        {
-          id: 2,
-          title: 'Event 2',
-          timeFrom: '2023-07-12T11:20:00.000+09:00',
-          timeTo: '2023-07-12T11:30:10.000+09:00',
-        },
-        {
-          id: 3,
-          title: 'Event 3',
-          timeFrom: '2023-07-12T23:40:00.000+09:00',
-          timeTo: '2023-07-13T00:39:30.000+09:00',
-        },
-      ])
+      ctx.json({
+        '2023-07-12': [
+          {
+            id: 1,
+            title: 'Event 1',
+            timeFrom: '2023-07-12T11:00:00.000+09:00',
+            timeTo: '2023-07-12T12:15:10.000+09:00',
+          },
+          {
+            id: 2,
+            title: 'Event 2',
+            timeFrom: '2023-07-12T11:20:00.000+09:00',
+            timeTo: '2023-07-12T11:30:10.000+09:00',
+          },
+          {
+            id: 3,
+            title: 'Event 3',
+            timeFrom: '2023-07-12T23:40:00.000+09:00',
+            timeTo: '2023-07-13T00:39:30.000+09:00',
+          },
+        ],
+        '2023-07-13': [
+          {
+            id: 4,
+            title: 'Event 4',
+            timeFrom: '2023-07-13T13:15:00.000+09:00',
+            timeTo: '2023-07-13T15:42:00.000+09:00',
+          },
+        ],
+      })
     );
   }),
 
